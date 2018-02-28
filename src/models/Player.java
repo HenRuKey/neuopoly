@@ -1,10 +1,3 @@
-<<<<<<< Upstream, based on origin/master
-package models;
-
-public class Player {
-
-}
-=======
 package models;
 
 import models.Account;
@@ -78,4 +71,4 @@ public class Player
 				"\nIn Server Room: "+isServerRoom();
 	}
 }
->>>>>>> 990861d Updated Account and Player models
+
