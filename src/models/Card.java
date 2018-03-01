@@ -1,6 +1,7 @@
 package models;
 
 public class Card {
+
 	private int type;
 	private int action;
 	private double value;
@@ -36,4 +37,5 @@ public class Card {
 	public String toString() {
 		return this.description;
 	}
+
 }
