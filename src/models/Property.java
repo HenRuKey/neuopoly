@@ -16,8 +16,8 @@ public class Property implements Tileable, Ownable
 	private final String TYPE;
 	private int houseCost;
 	
-	private static int totalHouses;
-	private static int totalHotels;
+	private static int totalHouses=32;
+	private static int totalHotels=12;
 	
 	//Purple:Bridges:60:30:2:250:Houses $50 each, Hotel $50 + 4 Houses
 	public Property(String t,String n,int p,int mp,int r,int hr)
@@ -38,7 +38,8 @@ public class Property implements Tileable, Ownable
 		case "Yellow":houseCost=150;break;
 		case "Green":houseCost=200;break;
 		case "Blue":houseCost=200;break;
-		case "R.R":break;
+		case "R.R":houseCost=0;break;
+		case "Util":break;
 		}
 	}
 	
