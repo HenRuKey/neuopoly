@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainMenuVC">
+   <children>
+      <GridPane prefHeight="436.0" prefWidth="650.0" style="-fx-background-color: #333;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="252.85711669921875" minHeight="10.0" prefHeight="232.71429443359375" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="163.28570556640625" minHeight="10.0" prefHeight="63.28570556640625" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="128.857177734375" minHeight="10.0" prefHeight="85.4285888671875" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="54.5714111328125" minHeight="10.0" prefHeight="54.5714111328125" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="107.0" text="Neuopoly ©2018" textAlignment="CENTER" textFill="#f2f2f2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView fitHeight="103.0" fitWidth="456.0" GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@assets/Neuopoly_Logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btnStart" mnemonicParsing="false" prefHeight="48.0" prefWidth="216.0" style="-fx-background-color: #E7AC44;" text="Start Game" textAlignment="CENTER" textFill="#f2f2f2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Oxygen Regular" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btnInstructions" layoutX="227.0" layoutY="257.0" mnemonicParsing="false" onAction="#displayInstructions" prefHeight="48.0" prefWidth="216.0" style="-fx-background-color: #E7AC44;" text="Instructions" textAlignment="CENTER" textFill="#f2f2f2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Oxygen Regular" size="24.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
