@@ -1,11 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import interfaces.Ownable;
 import interfaces.Tileable;
 
-public class Property implements Tileable, Ownable 
+public class Property implements Tileable, Ownable, Serializable 
 {
 	//this class is for all PROPERTIES, not including utilities and railroads.
 	public final int PRICE,MORTGAGE_PRICE;
