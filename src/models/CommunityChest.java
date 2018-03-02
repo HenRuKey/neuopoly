@@ -2,7 +2,9 @@ package models;
 
 import java.util.ArrayList;
 
-public class CommunityChest {
+import interfaces.Tileable;
+
+public class CommunityChest implements Tileable {
 
 	private ArrayList<Card> communityChest;
 	

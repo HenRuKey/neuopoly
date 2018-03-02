@@ -1,6 +1,8 @@
 package models;
 
-public class ServerRoom {
+import interfaces.Tileable;
+
+public class ServerRoom implements Tileable {
 
 	public ServerRoom() {
 		

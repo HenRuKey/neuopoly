@@ -2,7 +2,9 @@ package models;
 
 import java.util.ArrayList;
 
-public class Chance {
+import interfaces.Tileable;
+
+public class Chance implements Tileable {
 
 
 	private ArrayList<Card> chance;
