@@ -1,15 +1,18 @@
 package models;
 
-public class Bunker {
+import interfaces.Tileable;
+
+public class Bunker implements Tileable {
 
 	private int value;
 	
 	public Bunker() {
 		
 	}
-	
+	//Give the current player the pool of money stored in the Bunker
 	public void payPlayer(Player player) {
-		
+		player.getAccount().setBalance(player.getAccount().getBalance()+ getValue());
+		setValue(0);
 	}
 
 	public int getValue() {
