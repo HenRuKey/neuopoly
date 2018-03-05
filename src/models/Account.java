@@ -1,11 +1,11 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import interfaces.Ownable;
 
-public class Account
-{
+public class Account implements Serializable {
+	
 	private int balance;
 	private ArrayList<Ownable> property;
 	private byte gosrf;

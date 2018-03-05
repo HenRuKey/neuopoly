@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import interfaces.Tileable;
 
-public class GoToServerRoom implements Tileable {
+public class GoToServerRoom implements Tileable, Serializable {
 
 	public GoToServerRoom()  {
 		

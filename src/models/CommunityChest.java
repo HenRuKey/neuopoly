@@ -1,11 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import interfaces.Tileable;
 
-public class CommunityChest implements Tileable {
+public class CommunityChest implements Tileable, Serializable {
 
+	//List of Community Chest Cards
 	private ArrayList<Card> communityChest;
 	
 	public CommunityChest() {

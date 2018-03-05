@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import interfaces.Tileable;
 
-public class GoStipend implements Tileable{
+public class GoStipend implements Tileable, Serializable {
 
 	private final int value = 200;
 	
