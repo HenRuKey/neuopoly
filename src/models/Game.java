@@ -2,6 +2,8 @@ package models;
 
 import java.util.ArrayList;
 
+import enums.Token;
+
 public class Game {
 	
 	private Board board = new Board();
@@ -10,7 +12,7 @@ public class Game {
 	
 	public void numberOfPlayers(int numberOfPlayers) {
 		for (int i = 0; i < numberOfPlayers; i++) {
-			playerList.add(new Player());
+			playerList.add(new Player("Player " + (i+1), Token.values()[i]));
 		}
 	}
 
