@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import interfaces.Tileable;
 
-public class Bunker implements Tileable {
+public class Bunker implements Tileable, Serializable {
 
 	private int value;
 	

@@ -1,9 +1,10 @@
 package models;
 
+import java.io.Serializable;
 import interfaces.Tileable;
 
-public class Tax implements Tileable
-{
+public class Tax implements Tileable, Serializable {
+	
 	private String type; 
 	//type to store income, sales tax, etc
 	public final int VALUE;

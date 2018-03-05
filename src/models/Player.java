@@ -1,10 +1,10 @@
 package models;
 
-import models.Account;
+import java.io.Serializable;
 
 //class to keep track of all players in game
-public class Player
-{
+public class Player implements Serializable {
+	
 	//all fields for player 
 	private String name,token; //token may be changed to an enum
 	private int position;
