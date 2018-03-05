@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <FlowPane layoutX="209.0" layoutY="253.0" maxHeight="900.0" maxWidth="1400.0" minHeight="900.0" minWidth="1400.0" prefHeight="900.0" prefWidth="1400.0" style="-fx-background-color: #403F3F;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <FlowPane prefHeight="850.0" prefWidth="950.0" style="-fx-background-color: #f2f2f2;">
+               <FlowPane.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </FlowPane.margin>
+            </FlowPane>
+            <Accordion minWidth="350.0" stylesheets="@../application/application.css">
+              <panes>
+                <TitledPane animated="false" text="untitled 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+               <FlowPane.margin>
+                  <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+               </FlowPane.margin>
+            </Accordion>
+         </children></FlowPane>
+   </children>
+</AnchorPane>
