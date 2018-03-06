@@ -195,4 +195,20 @@ public class Property implements Tileable, Ownable, Serializable {
 				+ "\nWith 3 Houses: $" + baseRent * 45 + "\nWith 4 Houses: $" + baseRent * 80 + "\nWith HOTEL: $"
 				+ hotelRent + "\n" + description;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}else if (!(other instanceof Property)) {
+			return false;
+		}
+		Property card = (Property) other;
+			if (this.name.equals(card.getName())) {
+				return true;
+			}else {
+				return false;
+			}
+	}
+	
 }
