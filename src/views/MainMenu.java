@@ -1,35 +1,33 @@
 package views;
 
 import java.io.IOException;
+
+import interfaces.Controllable;
+import interfaces.Stageable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
-public class MainMenu {
+public class MainMenu implements Stageable {
 	
 	private static final String FXML_FILE = "MainMenu.fxml";
-	private Stage stage;
+	private FXMLLoader loader;
 	private Scene scene;
 	
-	/**
-	 * 
-	 * @param stage
-	 * @throws IOException
-	 */
-	public MainMenu(Stage stage) throws IOException {
-		this.stage = stage;
-		AnchorPane root = FXMLLoader.load(getClass().getResource(FXML_FILE));
+	public MainMenu() throws IOException {
+		loader = new FXMLLoader(getClass().getResource(FXML_FILE));
+		AnchorPane root = loader.load();
 		scene = new Scene(root);
 	}
-	
-	
-	/**
-	 * 
-	 */
-	public void show() {
-		stage.setScene(scene);
-		stage.show();
+
+	@Override
+	public Scene getScene() {
+		return scene;
+	}
+
+	@Override
+	public Controllable getController() {
+		return loader.getController();
 	}
 
 }

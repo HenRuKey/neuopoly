@@ -9,11 +9,11 @@ public class GoStipend {
 	}
 	
 	public void payPlayer(Player player) {
-		player.Account.setBalance(getBalance() +value);
+		// player.Account.setBalance(getBalance() +value);
 	}
 	
 	public void landOnGo(Player player) {
-		player.Account.setBalance(getBalance() +(value *2));
+		// player.Account.setBalance(getBalance() +(value *2));
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import interfaces.Stageable;
 import interfaces.Viewable;
 import javafx.stage.Stage;
+import models.Card;
 import models.Player;
 import views.GameBoardView;
 import views.Instructions;
@@ -16,21 +17,14 @@ public class ViewManager implements Viewable {
 	private Stage stage;
 	private Stageable mainMenu;
 	private Stageable instructions;
-	private Stageable gameBoard;
+	private Stageable gameBoard;	
 	private Stageable setUp;
 	
-	/**
-	 * 
-	 * @param stage
-	 */
 	public ViewManager(Stage stage) {
 		this.stage = stage;
 		initialize();
 	}
 	
-	/**
-	 * 
-	 */
 	private void initialize() {
 		try {
 			mainMenu = new MainMenu();
@@ -58,14 +52,17 @@ public class ViewManager implements Viewable {
 
 	@Override
 	public void updatePlayerAccount(Player player) {
-
 		
 	}
 
 	@Override
 	public void rollDie(int rolledFace) {
-
 		
+	}
+	
+	@Override
+	public void showSetUpMenu() {
+		stage.setScene(setUp.getScene());
 	}
 
 	@Override
@@ -79,6 +76,12 @@ public class ViewManager implements Viewable {
 	@Override
 	public void showGameBoard() {
 		stage.setScene(gameBoard.getScene());
+	}
+
+	@Override
+	public void displayCard(Card card) {
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.dislpayCard(card);
 	}
 		
 

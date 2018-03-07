@@ -1,25 +1,23 @@
 package controllers;
 
-import java.io.IOException;
+import interfaces.Controllable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import views.Instructions;
 
-public class MainMenuVC {
+public class MainMenuVC implements Controllable {
 	
 	@FXML private Button btnStart;
 	@FXML private Button btnInstructions;
 	
 	public void displayInstructions(ActionEvent event) {
-		Instructions instructions;
-		try {
-			instructions = new Instructions(new Stage());
-			instructions.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		GameManager.viewManager.showInstructionsWindow();
 	}
+	
+	public void startGame(ActionEvent event) {
+		GameManager.viewManager.showSetUpMenu();
+	}
+	
+	
 
 }
