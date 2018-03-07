@@ -120,6 +120,15 @@ public class Property implements Tileable, Ownable, Serializable {
 			totalHouses--;
 		}
 	}
+	
+	public void sellHouse() {
+		//only able to sell houses if there are houses on the property
+		if (houses < 5) {
+			//takes one house off the property and adds it back to the total
+			houses--;
+			totalHouses++;
+		}
+	}
 
 	public void addHotel() {
 		// only adds hotel if there are four houses
@@ -129,6 +138,16 @@ public class Property implements Tileable, Ownable, Serializable {
 			totalHouses += 4;
 			hotel = true;
 			totalHotels--;
+		}
+	}
+	
+	public void sellHotel() {
+		//can only sell a hotel if they currently have a hotel and there are enough houses left to put houses on the property
+		if (getHotel() || totalHouses > 4) {
+			setHotel(false);
+			totalHotels++;
+			setHouses((byte)4);
+			totalHouses -= 4;
 		}
 	}
 

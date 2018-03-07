@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-
 import models.Player;
 import models.Property;
 
@@ -12,7 +11,7 @@ public class GameLogic {
 		if (player.getAccount().getBalance() > property.PRICE) {
 			player.getAccount().setBalance(player.getAccount().getBalance() - property.PRICE);
 		} else if (player.getAccount().getBalance() < property.PRICE) {
-			// say you dont have enough money
+			// say you don't have enough money
 		}
 	}
 
@@ -29,7 +28,6 @@ public class GameLogic {
 	// Mortgage a specific property that the player owns
 	public void mortgageProperty(Player player, int pointer) {
 		Property[] propertyList = currentPlayerProperties(player);
-
 		// compares the selectecd property from the temp list to the players account and
 		// sets the account property to mortgaged
 		Property toBeMortgagedProperty = propertyList[pointer];
@@ -50,7 +48,7 @@ public class GameLogic {
 	}
 
 	// Current player's list of properties available to upgrade
-	public ArrayList<Property> propertiesAvailableToUpgrade(Player player) {
+	public ArrayList<Property> upgradableProperties(Player player) {
 		Property[] propertyList = currentPlayerProperties(player);
 		ArrayList<Property> tempList = new ArrayList<>();
 		for (int i = 0; i < propertyList.length; i++) {
@@ -63,12 +61,57 @@ public class GameLogic {
 		return tempList;
 	}
 
+	// Adds a house at a time or a hotel if the player has 4 houses already
 	public void upgradeProperty(Player player, int pointer) {
-		ArrayList<Property> upgradableList = propertiesAvailableToUpgrade(player);
+		ArrayList<Property> upgradableList = upgradableProperties(player);
+		// add house unless you have max houses
 		if (upgradableList.get(pointer).getHouses() < 4) {
-			upgradableList.get(pointer).addHouse();
+			for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
+				if (player.getAccount().getProperty().get(i).getName().equals(upgradableList.get(pointer).getName())) {
+					((Property) player.getAccount().getProperty().get(i)).addHouse();
+					player.getAccount().setBalance(player.getAccount().getBalance()-upgradableList.get(pointer).getHouseCost());
+				}
+			}
+			// add hotel if player has reached max houses
 		} else {
-			upgradableList.get(pointer).addHotel();
+			for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
+				if (player.getAccount().getProperty().get(i).getName().equals(upgradableList.get(pointer).getName())) {
+					((Property) player.getAccount().getProperty().get(i)).addHotel();
+					player.getAccount().setBalance(player.getAccount().getBalance()-upgradableList.get(pointer).getHouseCost());
+				}
+			}
+		}
+	}
+
+	public ArrayList<Property> downgradableProperty(Player player) {
+		Property[] propertyList = currentPlayerProperties(player);
+		ArrayList <Property> tempList = new ArrayList<>();
+		for (int i = 0; i < propertyList.length; i++) {
+			if (propertyList[i].getHotel() || propertyList[i].getHouses() > 0) {
+				tempList.add(propertyList[i]);
+			}
+		}
+		return tempList;
+	}
+	
+	// Sells hotel/houses one at a time
+	public void downgradeProperty(Player player, int pointer) {
+		ArrayList<Property> downgradableList = downgradableProperty(player);
+		//sell hotel if a hotel exists
+		if (downgradableList.get(pointer).getHotel()) {
+			for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
+				if (player.getAccount().getProperty().get(i).getName().equals(downgradableList.get(pointer).getName())) {
+					((Property)player.getAccount().getProperty().get(i)).sellHotel();
+					player.getAccount().setBalance(player.getAccount().getBalance() + (downgradableList.get(pointer).getHouseCost()/2));
+				}
+			}
+		}else {
+			for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
+				if (player.getAccount().getProperty().get(i).getName().equals(downgradableList.get(pointer).getName())) {
+					((Property)player.getAccount().getProperty().get(i)).sellHouse();
+					player.getAccount().setBalance(player.getAccount().getBalance() + (downgradableList.get(pointer).getHouseCost()/2));
+				}
+			}
 		}
 	}
 
