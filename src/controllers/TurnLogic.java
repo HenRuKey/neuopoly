@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import interfaces.Ownable;
+import models.Board;
 import models.Game;
 import models.Player;
 import models.Property;
@@ -11,8 +12,10 @@ import models.Utility;
 public class TurnLogic
 {
 	public Game game=new Game();
+	Board board=new Board();
 	ArrayList<Player> players;
 	Player currentPlayer;
+	GameLogic gameLogic=new GameLogic();
 	
 	public void turn()
 	{
@@ -25,7 +28,9 @@ public class TurnLogic
 		for(int i=0;i<players.size();i++)
 		{
 			currentPlayer=players.get(i);
-			int choice=currentPlayer.chooseOption();
+			
+			//choose what they want to do from the UI (roll, buy houses/hotel, trade(?))
+			int choice=currentPlayer.chooseOption();  
 			
 			switch(choice)
 			{
@@ -36,14 +41,14 @@ public class TurnLogic
 				int roll2=game.getDie2().getFaceValue();
 				
 				currentPlayer.move(roll1+roll2);
-				if(currentPlayer.onOwnable())
+				if(currentPlayer.onProperty())
 				{
 					Ownable currentProperty=currentPlayer.getProperty();
 					boolean isUtil=false;
 					if(currentProperty.getTYPE()=="Utility"){isUtil=true;}
 					if(currentProperty.getOwner()==null)
 					{
-						currentPlayer.buyProperty();
+						gameLogic.buyProperty(currentPlayer,(Property)currentProperty);
 					}
 					else if(currentProperty.getOwner()!=currentPlayer)
 					{
