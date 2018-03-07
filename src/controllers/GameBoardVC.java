@@ -1,12 +1,15 @@
 package controllers;
+import enums.Token;
 import interfaces.Controllable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 import models.Card;
+import models.Player;
 
 public class GameBoardVC implements Controllable {
 	
@@ -36,10 +39,24 @@ public class GameBoardVC implements Controllable {
 			createAddTile(10, j, counter);
 			counter++;
 		}
+		// Add players to accordion
+		for (Player player : TurnLogic.Game.getPlayerList()) {
+			TitledPane playerTab = new TitledPane();
+			playerTab.setText(player.getName());
+			Pane properties = new Pane();
+			playerTab.setContent(properties);
+			accordionPlayers.getPanes().add(playerTab);
+		}
 		// Hide the drawn card template
 		pnlCard.setVisible(false);
 	}
 	
+	/**
+	 * Add a tile to the game board
+	 * @param x horizontal position
+	 * @param y vertical position
+	 * @param count ordinal representation of the tile
+	 */
 	private void createAddTile(int x, int y, int count) {
 		Pane tile = new Pane();
 		tile.getStyleClass().add("tile");

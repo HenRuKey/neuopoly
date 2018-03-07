@@ -1,19 +1,22 @@
 package models;
 
-import models.Account;
+import java.io.Serializable;
+
+import enums.Token;
 
 //class to keep track of all players in game
-public class Player
-{
+public class Player implements Serializable {
+	
 	//all fields for player 
-	private String name,token; //token may be changed to an enum
+	private String name;
+	private Token token; //token may be changed to an enum
 	private int position;
 	private boolean inServerRoom;
 	private Account account;
 	
 	//constructor for player, doesn't need to take position or inServerRoom because they will always default
 		//to 0 and false respectively when a new player is made
-	public Player(String n,String t)
+	public Player(String n,Token t)
 	{
 		setName(n);
 		setToken(t);
@@ -30,11 +33,11 @@ public class Player
 	{
 		return name;
 	}
-	public void setToken(String t)
+	public void setToken(Token t)
 	{
 		token=t;
 	}
-	public String getToken()
+	public Token getToken()
 	{
 		return token;
 	}
