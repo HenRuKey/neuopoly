@@ -4,9 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class RailroadCards {
+import interfaces.Tileable;
 
+public class RailroadCards implements Tileable, Serializable{
+	
 	Railroad[] railroads = new Railroad[4];
 	
 	public RailroadCards() {

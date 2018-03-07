@@ -4,12 +4,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class UtilityCards {
+import interfaces.Tileable;
 
-	Utility[] utilities = new Utility[2];
+public class UtilityCards implements Tileable, Serializable{
 	
+	Utility[] utilities = new Utility[2];
+
 	public UtilityCards() {
+		
 		
 		utilities[0] = new Utility("Tuition");
 		utilities[1] = new Utility("Video Games");
