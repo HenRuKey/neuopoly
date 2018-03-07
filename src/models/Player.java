@@ -32,6 +32,7 @@ public class Player implements Serializable {
 			if(position+1>39)
 			{
 				num=-1;
+				account.addToBalance(200);
 			}
 			position++;
 		}
