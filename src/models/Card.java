@@ -18,6 +18,15 @@ public class Card implements Serializable {
 		this.description = cards[3];
 		
 	}
+	
+	public Card(int type, int action, double value, String description) {
+		
+		this.type = type;
+		this.action = action;
+		this.value = value;
+		this.description = description;
+		
+	}
 
 	public int getType() {
 		return type;
