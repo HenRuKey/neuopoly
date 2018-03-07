@@ -102,7 +102,14 @@ public class Property implements Tileable, Ownable, Serializable {
 				counter++;
 			}
 		}
-		return counter == 4;
+		if(this.TYPE.equals("Blue")||this.TYPE.equals("Purple"))
+		{
+			return counter==2;			
+		}
+		else
+		{
+			return counter==3;
+		}
 	}
 
 	public void addHouse() {
@@ -186,6 +193,17 @@ public class Property implements Tileable, Ownable, Serializable {
 		return rent;
 	}
 
+	@Override
+	public Player getOwner()
+	{
+		return owner;
+	}
+	
+	public void setOwner(Player o)
+	{
+		owner=o;
+	}
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
