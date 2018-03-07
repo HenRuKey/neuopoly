@@ -1,5 +1,6 @@
 package interfaces;
 
+import models.Card;
 import models.Player;
 
 public interface Viewable {
@@ -38,5 +39,24 @@ public interface Viewable {
 	 * @param rolledFace randomly generated result of a die roll
 	 */
 	public void rollDie(int rolledFace);
+
+	/**
+	 * Display the window containing the game board, players,
+	 * and player data.
+	 */
+	void showGameBoard();
+
+	/**
+	 * Display the set up window that will get player count, player
+	 * names, and player pieces.
+	 */
+	void showSetUpMenu();
+	
+	
+	/**
+	 * Display the card a player has drawn from the deck.
+	 * @param card player's card
+	 */
+	void displayCard(Card card);
 
 }
