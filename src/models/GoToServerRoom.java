@@ -1,13 +1,16 @@
 package models;
 
-public class GoToServerRoom {
+import java.io.Serializable;
+import interfaces.Tileable;
 
-	public GoToServerRoom() {
+public class GoToServerRoom implements Tileable, Serializable {
+
+	public GoToServerRoom()  {
 		
 	}
-	
+	//Set player to be in Server Room
 	public void sendToServerRoom(Player player) {
-		
+		player.setServerRoom(true);
 	}
 	
 }

@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import interfaces.Tileable;
 
-public class Chance {
+public class Chance implements Tileable, Serializable {
 
-
+	//List of Chance Cards
 	private ArrayList<Card> chance;
 	
 	public Chance() {

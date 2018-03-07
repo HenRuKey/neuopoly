@@ -17,7 +17,5 @@ public class MainMenuVC implements Controllable {
 	public void startGame(ActionEvent event) {
 		GameManager.viewManager.showSetUpMenu();
 	}
-	
-	
-
+  
 }

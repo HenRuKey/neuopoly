@@ -1,8 +1,11 @@
 package models;
 
+import java.io.Serializable;
+
 // A class to represent a single die with faces showing values between 1 and 6
 
-public class Die {
+public class Die implements Serializable {
+	
 		private final int MAX = 6; // Max face value.
 		private int faceValue; // The current value showing on the die.
 

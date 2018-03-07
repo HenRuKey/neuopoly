@@ -24,6 +24,19 @@ public class Player implements Serializable {
 		setServerRoom(false);
 		setAccount(new Account());//creates a default account to start with (no properties and starting money)
 	}
+	
+	public void move(int num)
+	{
+		for(int i=0;i<num;i++)
+		{
+			if(position+1>39)
+			{
+				num=-1;
+			}
+			position++;
+		}
+	}
+	
 	//getters and setters for all fields
 	public void setName(String n)
 	{

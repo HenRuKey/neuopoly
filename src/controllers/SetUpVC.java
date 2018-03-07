@@ -19,5 +19,5 @@ public class SetUpVC implements Controllable {
 	public void startGame() {
 		GameManager.viewManager.showGameBoard();
 	}
-	
+  
 }

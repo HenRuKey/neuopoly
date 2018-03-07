@@ -6,6 +6,7 @@ import interfaces.Stageable;
 import interfaces.Viewable;
 import javafx.stage.Stage;
 import models.Card;
+
 import models.Player;
 import views.GameBoardView;
 import views.Instructions;
@@ -19,7 +20,7 @@ public class ViewManager implements Viewable {
 	private Stageable instructions;
 	private Stageable gameBoard;	
 	private Stageable setUp;
-	
+
 	public ViewManager(Stage stage) {
 		this.stage = stage;
 		initialize();
@@ -57,13 +58,14 @@ public class ViewManager implements Viewable {
 
 	@Override
 	public void rollDie(int rolledFace) {
-		
-	}
-	
+   
+  }
+
 	@Override
 	public void showSetUpMenu() {
 		stage.setScene(setUp.getScene());
 	}
+
 
 	@Override
 	public void showInstructionsWindow() {
@@ -83,6 +85,6 @@ public class ViewManager implements Viewable {
 		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
 		vc.dislpayCard(card);
 	}
-		
+
 
 }
