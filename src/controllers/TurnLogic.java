@@ -3,6 +3,7 @@ package controllers;
 import java.util.ArrayList;
 
 import interfaces.Ownable;
+import interfaces.Tileable;
 import models.Board;
 import models.Game;
 import models.Player;
@@ -41,7 +42,7 @@ public class TurnLogic
 				int roll2=game.getDie2().getFaceValue();
 				
 				currentPlayer.move(roll1+roll2);
-				if(currentPlayer.onProperty())
+				if(getCurrentType(currentPlayer).equals("Property"))
 				{
 					Ownable currentProperty=currentPlayer.getProperty();
 					boolean isUtil=false;
@@ -103,5 +104,19 @@ public class TurnLogic
 				break;
 			}
 		}
+	}
+	
+	private String getCurrentType(Player currentP)
+	{
+		int pos=currentP.getPosition();
+		Tileable tile=board.board.get(pos);
+		return tile.getTYPE();
+	}
+	
+	private Tileable getCurrentTile(Player currentP)
+	{
+		int pos=currentP.getPosition();
+		Tileable tile=board.board.get(pos);
+		return tile;
 	}
 }

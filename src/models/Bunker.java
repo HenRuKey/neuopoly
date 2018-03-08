@@ -6,9 +6,10 @@ import interfaces.Tileable;
 public class Bunker implements Tileable, Serializable {
 
 	private int value;
+	private final String TYPE;
 	
 	public Bunker() {
-		
+		TYPE="Bunker";
 	}
 	//Give the current player the pool of money stored in the Bunker
 	public void payPlayer(Player player) {
@@ -29,4 +30,9 @@ public class Bunker implements Tileable, Serializable {
 		this.value = value;
 	}
 	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
+	}
 }

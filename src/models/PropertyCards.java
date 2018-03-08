@@ -11,9 +11,10 @@ import interfaces.Tileable;
 public class PropertyCards implements Tileable, Serializable{
 
 	Property[] properties = new Property[22];
+	private final String TYPE;
 	
 	public PropertyCards() {
-		
+		TYPE="PropertyCards";
 		properties[0] = new Property("Purple", "Bridges", 60, 30, 2, 250, "Houses $50 each, Hotel $50 + 4 Houses");
 		properties[1] = new Property("Purple", "City Station", 60, 30, 4, 450, "Houses $50 each, Hotel $50 + 4 Houses");
 		properties[2] = new Property("Light Blue", "Mercer", 100, 50, 6, 550, "Houses $50 each, Hotel $50 + 4 Houses");
@@ -55,7 +56,11 @@ public class PropertyCards implements Tileable, Serializable{
 	}
 	
 	
-	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
+	}
 	
 	
 }

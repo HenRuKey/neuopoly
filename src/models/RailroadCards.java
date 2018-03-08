@@ -11,9 +11,9 @@ import interfaces.Tileable;
 public class RailroadCards implements Tileable, Serializable{
 	
 	Railroad[] railroads = new Railroad[4];
-	
+	private final String TYPE;
 	public RailroadCards() {
-		
+		TYPE="RailroadCards";
 		railroads[0] = new Railroad("Blue line");
 		railroads[1] = new Railroad("Red line");
 		railroads[2] = new Railroad("Green line");
@@ -32,5 +32,11 @@ public class RailroadCards implements Tileable, Serializable{
 		}
 		
 	}
+
 	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
+	}
 }

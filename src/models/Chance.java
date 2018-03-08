@@ -8,9 +8,10 @@ public class Chance implements Tileable, Serializable {
 
 	//List of Chance Cards
 	private ArrayList<Card> chance;
+	private final String TYPE;
 	
 	public Chance() {
-		
+		TYPE="Chance";
 	}
 	
 	public void addCard(Card card) {
@@ -22,4 +23,9 @@ public class Chance implements Tileable, Serializable {
 		return card;
 	}
 	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
+	}
 }
