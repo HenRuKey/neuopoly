@@ -93,16 +93,7 @@ public class TurnLogic
 				Property currentProperty=currentPlayer.chooseProperty();//get choice from UI
 				if(currentProperty.hasMonopoly())
 				{
-					if(currentPlayer CHOOSES HOUSE)
-					{
-						currentProperty.addHouse();
-						currentPlayer.getAccount().removeFromBalance(currentProperty.getHouseCost());
-					}
-					else if (currentPlayer CHOOSES HOTEL)
-					{
-						currentProperty.addHotel();
-						currentPlayer.getAccount().removeFromBalance(currentProperty.getHouseCost());
-					}
+					gameLogic.upgradeProperty(currentPlayer,int pointer);
 				}
 				
 				break;
