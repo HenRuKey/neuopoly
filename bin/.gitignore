@@ -1,4 +1,5 @@
 /application/
+/controllers/
 /interfaces/
 /models/
-/interfaces/
+/enums/

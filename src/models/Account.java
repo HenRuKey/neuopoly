@@ -32,6 +32,17 @@ public class Account implements Serializable {
 	{
 		balance=b;
 	}
+	
+	public void addToBalance(int b)
+	{
+		balance+=b;
+	}
+	
+	public void removeFromBalance(int b)
+	{
+		balance-=b;
+	}
+	
 	public ArrayList<Ownable> getProperty()
 	{
 		return property;

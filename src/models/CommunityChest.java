@@ -8,9 +8,10 @@ public class CommunityChest implements Tileable, Serializable {
 
 	//List of Community Chest Cards
 	private ArrayList<Card> communityChest;
+	private final String TYPE;
 	
 	public CommunityChest() {
-		
+		TYPE="CommunityChest";
 	}
 	
 	public void addCard(Card card) {
@@ -20,6 +21,12 @@ public class CommunityChest implements Tileable, Serializable {
 	public Card getCard(int index) {
 		Card card = communityChest.get(index);
 		return card;
+	}
+	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
 	}
 	
 }

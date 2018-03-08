@@ -95,6 +95,17 @@ public class Railroad implements Tileable, Ownable, Serializable
 	}
 	
 	@Override
+	public Player getOwner()
+	{
+		return owner;
+	}
+	
+	public void setOwner(Player o)
+	{
+		owner=o;
+	}
+	
+	@Override
 	public String toString()
 	{
 		return name+" ["+TYPE+"]\nPrice: "+PRICE+"\nMortgage Price: "+MORTGAGE_PRICE+"\nRent with 1 owned: $25"

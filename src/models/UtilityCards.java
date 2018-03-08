@@ -11,9 +11,9 @@ import interfaces.Tileable;
 public class UtilityCards implements Tileable, Serializable{
 	
 	Utility[] utilities = new Utility[2];
-
+	private final String TYPE;
 	public UtilityCards() {
-		
+		TYPE="UtilityCards";
 		
 		utilities[0] = new Utility("Tuition");
 		utilities[1] = new Utility("Video Games");
@@ -31,5 +31,9 @@ public class UtilityCards implements Tileable, Serializable{
 		}
 		
 	}
-	
+	@Override
+	public String getTYPE()
+	{
+		return TYPE;
+	}
 }

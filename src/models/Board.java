@@ -11,7 +11,7 @@ public class Board implements Serializable {
 	public static HashMap<Integer, Tileable> board = new HashMap<>();
 	private GoStipend go = new GoStipend();
 	private ServerRoom serverRoom = new ServerRoom();
-	private Bunker bunker = new Bunker();
+	public Bunker bunker = new Bunker();
 	private GoToServerRoom goToServerRoom = new GoToServerRoom();
 	private PropertyCards properties = new PropertyCards();
 	private RailroadCards railroads = new RailroadCards();

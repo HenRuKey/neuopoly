@@ -12,7 +12,7 @@ public class Property implements Tileable, Ownable, Serializable {
 	 */
 	// this class is for all PROPERTIES, not including utilities and railroads.
 	public final int PRICE, MORTGAGE_PRICE;
-	public final String TYPE;
+	public final String TYPE,COLOR;
 	// final fields are public
 	private String name, description;
 	private byte houses;
@@ -27,7 +27,8 @@ public class Property implements Tileable, Ownable, Serializable {
 
 	// Purple:Bridges:60:30:2:250:Houses $50 each, Hotel $50 + 4 Houses
 	public Property(String t, String n, int p, int mp, int r, int hr, String d) {
-		TYPE = t;
+		TYPE = "Property";
+		COLOR=t;
 		setName(n);
 		PRICE = p;
 		MORTGAGE_PRICE = mp;
@@ -37,7 +38,7 @@ public class Property implements Tileable, Ownable, Serializable {
 		owner = null;
 		// depending what side of the board the property is, determines price of
 		// houses/hotels
-		switch (TYPE) {
+		switch (COLOR) {
 		case "Purple":
 			houseCost = 50;
 			break;
@@ -97,12 +98,21 @@ public class Property implements Tileable, Ownable, Serializable {
 	public boolean hasMonopoly() {
 		int counter = 0;
 		ArrayList<Ownable> props = owner.getAccount().getProperty();
-		for (int i = 0; i < props.size(); i++) {
-			if (props.get(i).getTYPE() == this.TYPE) {
+		for (int i = 0; i < props.size(); i++) 
+		{
+			if (((Property) props.get(i)).getCOLOR() == this.COLOR)//note 
+			{
 				counter++;
 			}
 		}
-		return counter == 4;
+		if(this.COLOR.equals("Blue")||this.COLOR.equals("Purple"))
+		{
+			return counter==2;			
+		}
+		else
+		{
+			return counter==3;
+		}
 	}
 
 	public void addHouse() {
@@ -111,6 +121,15 @@ public class Property implements Tileable, Ownable, Serializable {
 			// adds a house to the property and removes one from the totals
 			houses++;
 			totalHouses--;
+		}
+	}
+	
+	public void sellHouse() {
+		//only able to sell houses if there are houses on the property
+		if (houses < 5) {
+			//takes one house off the property and adds it back to the total
+			houses--;
+			totalHouses++;
 		}
 	}
 
@@ -124,6 +143,16 @@ public class Property implements Tileable, Ownable, Serializable {
 			totalHotels--;
 		}
 	}
+	
+	public void sellHotel() {
+		//can only sell a hotel if they currently have a hotel and there are enough houses left to put houses on the property
+		if (getHotel() || totalHouses > 4) {
+			setHotel(false);
+			totalHotels++;
+			setHouses((byte)4);
+			totalHouses -= 4;
+		}
+	}
 
 	// all setters and getters
 	@Override
@@ -131,6 +160,11 @@ public class Property implements Tileable, Ownable, Serializable {
 		return TYPE;
 	}
 
+	public String getCOLOR()
+	{
+		return COLOR;
+	}
+	
 	public void setHouseCost(int hc) {
 		houseCost = hc;
 	}
@@ -186,11 +220,22 @@ public class Property implements Tileable, Ownable, Serializable {
 		return rent;
 	}
 
+	@Override
+	public Player getOwner()
+	{
+		return owner;
+	}
+	
+	public void setOwner(Player o)
+	{
+		owner=o;
+	}
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String toString() {
-		return name + " [" + TYPE + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE + "\nRent: $"
+		return name + " [" + COLOR + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE + "\nRent: $"
 				+ baseRent + "\nWith 1 House: $" + baseRent * 5 + "\nWith 2 Houses: $" + baseRent * 15
 				+ "\nWith 3 Houses: $" + baseRent * 45 + "\nWith 4 Houses: $" + baseRent * 80 + "\nWith HOTEL: $"
 				+ hotelRent + "\n" + description;
