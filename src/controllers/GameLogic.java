@@ -24,13 +24,26 @@ public class GameLogic {
 		}
 		return propertyList;
 	}
+	
+	public ArrayList<Property> mortgageableProperties(Player player) {
+		Property[] propertyList = currentPlayerProperties(player);
+		ArrayList<Property> tempList = new ArrayList<>();
+		for(int i = 0; i < propertyList.length; i++) {
+			if (propertyList[i].getHouses() > 0 || propertyList[i].getHotel() || propertyList[i].isMortagaged()) {
+				//doesn't add to list if any of the if conditions are met
+			}else {
+				tempList.add(propertyList[i]);
+			}
+		}
+		return tempList;
+	}
 
 	// Mortgage a specific property that the player owns
 	public void mortgageProperty(Player player, int pointer) {
-		Property[] propertyList = currentPlayerProperties(player);
-		// compares the selectecd property from the temp list to the players account and
+		ArrayList<Property> mortgageableProperty = mortgageableProperties(player);
+		// compares the selected property from the temp list to the players account and
 		// sets the account property to mortgaged
-		Property toBeMortgagedProperty = propertyList[pointer];
+		Property toBeMortgagedProperty = mortgageableProperty.get(pointer);
 		for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
 			if (toBeMortgagedProperty.equals(player.getAccount().getProperty().get(i))) {
 				((Property) player.getAccount().getProperty().get(i)).setMortgaged(true);
