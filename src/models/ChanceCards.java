@@ -20,6 +20,8 @@ public class ChanceCards {
 	 * Value = amount that changes
 	 * 
 	 * Description = What the card says
+	 * 
+	 * I am making this comment so i can push it
 	 */
 	
 	public ChanceCards() {

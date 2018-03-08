@@ -19,6 +19,8 @@ public class CommunityChestCards {
 	 * Value = amount that changes
 	 * 
 	 * Description = What the card says
+	 * 
+	 * I am making this comment so that i can re push it
 	 */
 	
 	public CommunityChestCards() {

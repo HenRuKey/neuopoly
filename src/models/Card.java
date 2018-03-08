@@ -8,6 +8,8 @@ public class Card implements Serializable {
 	private int action;
 	private double value;
 	private String description;
+	
+	//I am making this comment so that i can re push it 
 
 	public Card(String card) {
 		String [] cards = card.split(":");
