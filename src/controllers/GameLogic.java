@@ -7,7 +7,7 @@ import models.Property;
 public class GameLogic {
 
 	//Checks if the property the player is on has been purchased yet
-	public boolean checkOwnership(Property property) {
+	public static boolean checkOwnership(Property property) {
 		boolean owned;
 		if(property.getOwner().equals(null)) {
 			//Property is not owned
@@ -19,7 +19,7 @@ public class GameLogic {
 	}
 	
 	// Buy Property
-	public void buyProperty(Player player, Property property) {
+	public static void buyProperty(Player player, Property property) {
 		if (player.getAccount().getBalance() > property.PRICE) {
 			player.getAccount().setBalance(player.getAccount().getBalance() - property.PRICE);
 		} else if (player.getAccount().getBalance() < property.PRICE) {
@@ -28,7 +28,7 @@ public class GameLogic {
 	}
 
 	// Makes an array of of the players owned properties
-	public Property[] currentPlayerProperties(Player player) {
+	public static Property[] currentPlayerProperties(Player player) {
 		// Array of players currently owned properties
 		Property[] propertyList = new Property[player.getAccount().getProperty().size()];
 		for (int i = 0; i < player.getAccount().getProperty().size(); i++) {
@@ -37,7 +37,7 @@ public class GameLogic {
 		return propertyList;
 	}
 	
-	public ArrayList<Property> mortgageableProperties(Player player) {
+	public static ArrayList<Property> mortgageableProperties(Player player) {
 		Property[] propertyList = currentPlayerProperties(player);
 		ArrayList<Property> tempList = new ArrayList<>();
 		for(int i = 0; i < propertyList.length; i++) {
@@ -51,7 +51,7 @@ public class GameLogic {
 	}
 
 	// Mortgage a specific property that the player owns
-	public void mortgageProperty(Player player, int pointer) {
+	public static void mortgageProperty(Player player, int pointer) {
 		ArrayList<Property> mortgageableProperty = mortgageableProperties(player);
 		// compares the selected property from the temp list to the players account and
 		// sets the account property to mortgaged
@@ -66,14 +66,14 @@ public class GameLogic {
 	}
 
 	// Pay rent
-	public void payRent(Property property, Player currentPlayer, Player propertyOwner) {
+	public static void payRent(Property property, Player currentPlayer, Player propertyOwner) {
 		int rent = property.getRent();
 		currentPlayer.getAccount().setBalance(currentPlayer.getAccount().getBalance() - rent);
 		propertyOwner.getAccount().setBalance(propertyOwner.getAccount().getBalance() + rent);
 	}
 
 	// Current player's list of properties available to upgrade
-	public ArrayList<Property> upgradableProperties(Player player) {
+	public static ArrayList<Property> upgradableProperties(Player player) {
 		Property[] propertyList = currentPlayerProperties(player);
 		ArrayList<Property> tempList = new ArrayList<>();
 		for (int i = 0; i < propertyList.length; i++) {
@@ -87,7 +87,7 @@ public class GameLogic {
 	}
 
 	// Adds a house at a time or a hotel if the player has 4 houses already
-	public void upgradeProperty(Player player, int pointer) {
+	public static void upgradeProperty(Player player, int pointer) {
 		ArrayList<Property> upgradableList = upgradableProperties(player);
 		// add house unless you have max houses
 		if (upgradableList.get(pointer).getHouses() < 4) {
@@ -108,7 +108,7 @@ public class GameLogic {
 		}
 	}
 
-	public ArrayList<Property> downgradableProperty(Player player) {
+	public static ArrayList<Property> downgradableProperty(Player player) {
 		Property[] propertyList = currentPlayerProperties(player);
 		ArrayList <Property> tempList = new ArrayList<>();
 		for (int i = 0; i < propertyList.length; i++) {
@@ -120,7 +120,7 @@ public class GameLogic {
 	}
 	
 	// Sells hotel/houses one at a time
-	public void downgradeProperty(Player player, int pointer) {
+	public static void downgradeProperty(Player player, int pointer) {
 		ArrayList<Property> downgradableList = downgradableProperty(player);
 		//sell hotel if a hotel exists
 		if (downgradableList.get(pointer).getHotel()) {
