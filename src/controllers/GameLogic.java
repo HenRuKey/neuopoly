@@ -6,6 +6,18 @@ import models.Property;
 
 public class GameLogic {
 
+	//Checks if the property the player is on has been purchased yet
+	public boolean checkOwnership(Property property) {
+		boolean owned;
+		if(property.getOwner().equals(null)) {
+			//Property is not owned
+			return owned = false;
+		}else {
+			//Property is owned
+			return owned = true;
+		}	
+	}
+	
 	// Buy Property
 	public void buyProperty(Player player, Property property) {
 		if (player.getAccount().getBalance() > property.PRICE) {
