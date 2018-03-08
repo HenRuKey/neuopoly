@@ -97,7 +97,9 @@ public class TurnLogic
 				}
 				
 				break;
-			case 2://trade
+			case 2://sell houses/hotels
+				currentProperty=currentPlayer.chooseProperty();
+				gameLogic.downgradeProperty(currentPlayer,int pointer);
 				
 				break;
 			}
