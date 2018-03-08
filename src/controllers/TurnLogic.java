@@ -8,6 +8,7 @@ import models.Board;
 import models.Game;
 import models.Player;
 import models.Property;
+import models.Tax;
 import models.Utility;
 
 public class TurnLogic
@@ -18,7 +19,7 @@ public class TurnLogic
 	Player currentPlayer;
 	GameLogic gameLogic=new GameLogic();
 	
-	public void turn()
+	public void turn(int choice)//pass the choice from UI into turn method
 	{
 		/*
 		 * !!NOTICE!!
@@ -31,7 +32,6 @@ public class TurnLogic
 			currentPlayer=players.get(i);
 			
 			//choose what they want to do from the UI (roll, buy houses/hotel, trade(?))
-			int choice=currentPlayer.chooseOption();  
 			
 			switch(choice)
 			{
@@ -42,9 +42,10 @@ public class TurnLogic
 				int roll2=game.getDie2().getFaceValue();
 				
 				currentPlayer.move(roll1+roll2);
-				if(getCurrentType(currentPlayer).equals("Property"))
+				if(getCurrentType(currentPlayer).equals("Property")||getCurrentType(currentPlayer).equals("R.R.")||
+						getCurrentType(currentPlayer).equals("Utility"))
 				{
-					Ownable currentProperty=currentPlayer.getProperty();
+					Ownable currentProperty=(Ownable)getCurrentTile(currentPlayer);
 					boolean isUtil=false;
 					if(currentProperty.getTYPE()=="Utility"){isUtil=true;}
 					if(currentProperty.getOwner()==null)
@@ -67,23 +68,29 @@ public class TurnLogic
 						currentProperty.getOwner().getAccount().addToBalance(currentRent);
 					}
 				}
-				else if(currentPlayer.onTax())
+				else if(getCurrentType(currentPlayer).equals("Tax"))
 				{
-					int taxAmnt=currentPlayer.getTax().VALUE;
+					Tax currentTax=(Tax)getCurrentTile(currentPlayer);
+					int taxAmnt=currentTax.VALUE;
 					currentPlayer.getAccount().removeFromBalance(taxAmnt);
-					bunker.addToValue(taxAmnt);
+					board.bunker.addToValue(taxAmnt);
 				}
-				else if(currentPlayer.onGo())
+				else if(getCurrentType(currentPlayer).equals("GoStipend"))
 				{
 					currentPlayer.getAccount().addToBalance(400);
 				}
-				else if(currentPlayer.onGoToServerRoom())
+				else if(getCurrentType(currentPlayer).equals("GoToServerRoom"))
 				{
-					currentPlayer.sendToServerRoom();
+					currentPlayer.setServerRoom(true);
+				}
+				else if(getCurrentType(currentPlayer).equals("Bunker"))
+				{
+					currentPlayer.getAccount().addToBalance(board.bunker.getValue());
+					board.bunker.setValue(0);
 				}
 				break;
 			case 1: //buy houses/hotels
-				Property currentProperty=currentPlayer.chooseProperty();
+				Property currentProperty=currentPlayer.chooseProperty();//get choice from UI
 				if(currentProperty.hasMonopoly())
 				{
 					if(currentPlayer CHOOSES HOUSE)
