@@ -1,8 +1,8 @@
 package controllers;
-import enums.Token;
 import interfaces.Controllable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
@@ -17,7 +17,13 @@ public class GameBoardVC implements Controllable {
 	
 	@FXML private GridPane gameBoard;
 	@FXML private Accordion accordionPlayers;
-	@FXML private Pane pnlCard;
+	@FXML private Pane paneCard;
+	@FXML private Pane paneMenu;
+	@FXML private Button btnPurchase;
+	@FXML private Button btnBuyHouse;
+	@FXML private Button btnSellHouse;
+	@FXML private Button btnMortgage;
+	@FXML private Button btnEndTurn;
 	
 	@FXML
 	protected void initialize() {
@@ -40,7 +46,7 @@ public class GameBoardVC implements Controllable {
 			counter++;
 		}
 		// Add players to accordion
-		for (Player player : TurnLogic.Game.getPlayerList()) {
+		for (Player player : TurnLogic.game.getPlayerList()) {
 			TitledPane playerTab = new TitledPane();
 			playerTab.setText(player.getName());
 			Pane properties = new Pane();
@@ -48,7 +54,7 @@ public class GameBoardVC implements Controllable {
 			accordionPlayers.getPanes().add(playerTab);
 		}
 		// Hide the drawn card template
-		pnlCard.setVisible(false);
+		paneCard.setVisible(false);
 	}
 	
 	/**
@@ -65,13 +71,13 @@ public class GameBoardVC implements Controllable {
 	}
 	
 	public void dislpayCard(Card card) {
-		if (pnlCard.getChildren().size() > 0) {
-			pnlCard.getChildren().clear();
+		if (paneCard.getChildren().size() > 0) {
+			paneCard.getChildren().clear();
 		}
 		Label cardData = new Label();
 		cardData.setText(card.getDescription());
 		cardData.setTextAlignment(TextAlignment.CENTER);
-		pnlCard.getChildren().add(cardData);
+		paneCard.getChildren().add(cardData);
 		cardData.setVisible(true);
 	}
 
