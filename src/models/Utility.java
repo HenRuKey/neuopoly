@@ -47,12 +47,14 @@ public class Utility implements Tileable, Ownable, Serializable
 	public int numOfUtils()
 	{
 		int counter=0;
-		ArrayList<Ownable> props=owner.getAccount().getProperty();
-		for(int i=0;i<props.size();i++) 
-		{
-			if(props.get(i).getTYPE()==this.TYPE)
+		if (owner != null) {
+			ArrayList<Ownable> props=owner.getAccount().getProperty();
+			for(int i=0;i<props.size();i++) 
 			{
-				counter++;
+				if(props.get(i).getTYPE()==this.TYPE)
+				{
+					counter++;
+				}
 			}
 		}
 		return counter;

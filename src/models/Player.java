@@ -2,6 +2,8 @@ package models;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
+
 import enums.Token;
 
 //class to keep track of all players in game
@@ -27,15 +29,8 @@ public class Player implements Serializable {
 	
 	public void move(int num)
 	{
-		for(int i=0;i<num;i++)
-		{
-			if(position+1>39)
-			{
-				num=-1;
-				account.addToBalance(200);
-			}
-			position++;
-		}
+		int newPosition = num + position > 39 ? num + position - 39 : num + position;
+		setPosition(newPosition);
 	}
 	
 	//getters and setters for all fields
@@ -55,13 +50,13 @@ public class Player implements Serializable {
 	{
 		return token;
 	}
-	public void setPosition(int p)
-	{
-		position=p;
-	}
 	public int getPosition()
 	{
 		return position;
+	}
+	public void setPosition(int p) 
+	{
+		position = p;
 	}
 	public boolean isServerRoom()
 	{

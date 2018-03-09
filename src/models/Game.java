@@ -7,7 +7,7 @@ import enums.Token;
 public class Game {
 	
 	private Board board = new Board();
-	private Die die1, die2 = new Die();
+	private Die die1, die2;
 	private ArrayList<Player> playerList = new ArrayList<>();
 	
 	public void numberOfPlayers(int numberOfPlayers) {
@@ -21,10 +21,16 @@ public class Game {
 	}
 
 	public Die getDie1() {
+		if (die1 == null) {
+			die1 = new Die();
+		}
 		return die1;
 	}
 
 	public Die getDie2() {
+		if (die2 == null) {
+			die2 = new Die();
+		}
 		return die2;
 	}
 

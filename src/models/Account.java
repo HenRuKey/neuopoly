@@ -45,6 +45,9 @@ public class Account implements Serializable {
 	
 	public ArrayList<Ownable> getProperty()
 	{
+		if (property == null) {
+			property = new ArrayList<>();
+		}
 		return property;
 	}
 	public void setProperty(ArrayList<Ownable> p)

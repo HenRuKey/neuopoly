@@ -6,7 +6,6 @@ import interfaces.Stageable;
 import interfaces.Viewable;
 import javafx.stage.Stage;
 import models.Card;
-
 import models.Player;
 import views.GameBoardView;
 import views.Instructions;
@@ -48,7 +47,8 @@ public class ViewManager implements Viewable {
 
 	@Override
 	public void updatePlayerPosition(Player player) {
-		
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.updatePlayerPositions();
 	}
 
 	@Override
@@ -57,15 +57,9 @@ public class ViewManager implements Viewable {
 	}
 
 	@Override
-	public void rollDie(int rolledFace) {
-   
-  }
-
-	@Override
 	public void showSetUpMenu() {
 		stage.setScene(setUp.getScene());
 	}
-
 
 	@Override
 	public void showInstructionsWindow() {
@@ -77,14 +71,25 @@ public class ViewManager implements Viewable {
 
 	@Override
 	public void showGameBoard() {
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.loadPlayers();
+		vc.populateHashMap();
+		vc.updatePlayerPositions();
 		stage.setScene(gameBoard.getScene());
+		GameManager.takeTurn();
 	}
 
 	@Override
 	public void displayCard(Card card) {
 		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
-		vc.dislpayCard(card);
+		vc.displayCard(card);
 	}
 
+	@Override
+	public void beginTurn(Player player) {
+		TurnLogic.setCurrentPlayer(player);
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.beginTurn(player);
+	}
 
 }

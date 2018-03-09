@@ -34,11 +34,6 @@ public interface Viewable {
 	 */
 	public void updatePlayerAccount(Player player);
 	
-	/**
-	 * Visually represents a die rolling to a specified face.
-	 * @param rolledFace randomly generated result of a die roll
-	 */
-	public void rollDie(int rolledFace);
 
 	/**
 	 * Display the window containing the game board, players,
@@ -58,5 +53,9 @@ public interface Viewable {
 	 * @param card player's card
 	 */
 	void displayCard(Card card);
+
+	
+	
+	public void beginTurn(Player player);
 
 }

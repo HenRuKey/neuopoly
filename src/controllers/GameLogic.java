@@ -8,14 +8,7 @@ public class GameLogic {
 
 	//Checks if the property the player is on has been purchased yet
 	public static boolean checkOwnership(Property property) {
-		boolean owned;
-		if(property.getOwner().equals(null)) {
-			//Property is not owned
-			return owned = false;
-		}else {
-			//Property is owned
-			return owned = true;
-		}	
+		return !(property.getOwner() == null);
 	}
 	
 	// Buy Property

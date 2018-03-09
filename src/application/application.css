@@ -85,14 +85,17 @@
  */
  
  .tile {
- 	-fx-background-color: #f2f2f2;
- 	-fx-padding: 20px;
+ 	-fx-background-color: rgba(0, 0, 0, 0);
  	-fx-min-width: 100px;
  	-fx-max-height: 100px;
  	-fx-border-color: #333333;
  }
- 
- .test {
- 	-fx-background-color: #FE3521 !important;
+
+ .close-button {
+ 	-fx-alignment: center;
+ 	-fx-text-fill: #EFE08D;
+ 	-fx-background-color: #ECCC45;
+ 	-fx-font-family: "Oxygen";
+ 	-fx-font-size: 24;
  }
  

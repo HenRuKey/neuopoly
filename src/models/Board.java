@@ -8,7 +8,7 @@ import interfaces.Tileable;
 public class Board implements Serializable {
 
 	//Game Board
-	public static HashMap<Integer, Tileable> board = new HashMap<>();
+	public HashMap<Integer, Tileable> board = new HashMap<>();
 	private GoStipend go = new GoStipend();
 	private ServerRoom serverRoom = new ServerRoom();
 	public Bunker bunker = new Bunker();
