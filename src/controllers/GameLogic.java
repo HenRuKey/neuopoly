@@ -16,6 +16,7 @@ public class GameLogic {
 		if (player.getAccount().getBalance() > property.PRICE) {
 			player.getAccount().setBalance(player.getAccount().getBalance() - property.PRICE);
 			property.setOwner(player);
+			player.getAccount().addProperty(property);
 		} else if (player.getAccount().getBalance() < property.PRICE) {
 			// say you don't have enough money
 		}
