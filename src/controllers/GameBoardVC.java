@@ -39,15 +39,18 @@ public class GameBoardVC implements Controllable {
 	@FXML private Pane paneMenuProperties;
 	@FXML private Pane paneDieOne;
 	@FXML private Pane paneDieTwo;
+	@FXML private Pane paneMortgage;
 	@FXML private Button btnPurchase;
-	@FXML private Button btnBuyHouse;
-	@FXML private Button btnSellHouse;
+	@FXML private Button btnGrade;
 	@FXML private Button btnMortgage;
 	@FXML private Button btnEndTurn;
-	@FXML private Button btnInteractProperty;
+	@FXML private Button btnUpgrade;
+	@FXML private Button btnDowngrade;
 	@FXML private Button btnRoll;
+	@FXML private Button btnMortgageProperty;
 	@FXML private Label lblCurrentPlayer;
 	@FXML private ChoiceBox<Property> choiceBoxProperties;
+	@FXML private ChoiceBox<Property> choiceBoxMortgage;
 	
 	@FXML
 	protected void initialize() {
@@ -72,6 +75,7 @@ public class GameBoardVC implements Controllable {
 		// Hide the drawn card template and menu
 		paneMenu.setVisible(false);
 		paneCard.setVisible(false);
+		paneMortgage.setVisible(false);
 		paneMenuProperties.setVisible(false);
 	}
 	
@@ -165,6 +169,14 @@ public class GameBoardVC implements Controllable {
 		cardData.setVisible(true);
 	}
 	
+	public void mortgageProperty(ActionEvent event) {
+		int pointer = choiceBoxMortgage.getSelectionModel().getSelectedIndex();
+		GameLogic.mortgageProperty(TurnLogic.getCurrentPlayer(), pointer);
+		updatePlayerInfo();
+		paneMortgage.setVisible(false);
+		disableButtons();
+	}
+	
 	public void loadPlayers() {
 		playerTabs = new TitledPane[TurnLogic.game.getPlayerList().size()];
 		// Add players to accordion
@@ -189,8 +201,6 @@ public class GameBoardVC implements Controllable {
 	}
 	
 	public void displayPurchaseOptions(ActionEvent event) {
-		// Show pane
-		paneMenu.setVisible(false);
 		// Get current player and display options
 		Player player = TurnLogic.getCurrentPlayer();
 		paneMenuProperties.setVisible(true);
@@ -229,6 +239,14 @@ public class GameBoardVC implements Controllable {
 		// Check roll and disable rolling again if not double sixes 
 		btnRoll.setDisable(!((dieOne == 6) && (dieTwo == 6)));
 		// Disable buttons of impossible functions
+		disableButtons();
+		// Make menu visible
+		paneMenu.setVisible(true);
+	}
+	
+	
+	public void disableButtons() {
+		Player player = TurnLogic.getCurrentPlayer();
 		Tileable currrentPosition = TurnLogic.game.getBoard().board.get(player.getPosition());
 		boolean canPurchaseProperty = currrentPosition.getTYPE().equals("Property") && 
 				!GameLogic.hasOwner((Property) currrentPosition);
@@ -236,15 +254,33 @@ public class GameBoardVC implements Controllable {
 		boolean canDowngradeProperty = GameLogic.downgradableProperty(player).size() > 0;
 		boolean canMortgage = GameLogic.mortgageableProperties(player).size() > 0;
 		btnPurchase.setDisable(!canPurchaseProperty);
-		btnBuyHouse.setDisable(!canUpgradeProperty);
-		btnSellHouse.setDisable(!canDowngradeProperty);
+		btnGrade.setDisable(!(canDowngradeProperty || canUpgradeProperty));
 		btnMortgage.setDisable(!canMortgage);
-		// Make menu visible
-		paneMenu.setVisible(true);
 	}
-	
 	public void endTurn(ActionEvent event) {
 		GameManager.takeTurn();
+	}
+	
+	public void upgradeProperty(ActionEvent event) {
+		int pointer = choiceBoxProperties.getSelectionModel().getSelectedIndex();
+		GameLogic.upgradeProperty(TurnLogic.getCurrentPlayer(), pointer);
+		paneMenuProperties.setVisible(false);
+		disableButtons();
+	}
+	
+	public void downgradeProperty(ActionEvent event) {
+		int pointer = choiceBoxProperties.getSelectionModel().getSelectedIndex();
+		GameLogic.downgradeProperty(TurnLogic.getCurrentPlayer(), pointer);
+		paneMenuProperties.setVisible(false);
+		disableButtons();
+	}
+	
+	public void displayMortgageOptions(ActionEvent event) {
+		Player player = TurnLogic.getCurrentPlayer();
+		ObservableList<Property> properties = FXCollections.observableArrayList(GameLogic.mortgageableProperties(player));
+		choiceBoxMortgage.setItems(properties);
+		paneMortgage.setVisible(true);
+		updatePlayerInfo();
 	}
 	
 	private String getDieImage(int face) {

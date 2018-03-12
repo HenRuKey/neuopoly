@@ -1,11 +1,15 @@
 package controllers;
 
 import java.util.ArrayList;
+
 import interfaces.Ownable;
 import interfaces.Tileable;
 import models.Board;
+import models.ChanceCards;
+import models.CommunityChest;
 import models.Game;
 import models.Player;
+import models.Property;
 import models.Tax;
 import models.Utility;
 
@@ -18,6 +22,8 @@ public class TurnLogic
 	static Player currentPlayer;
 	static GameLogic gameLogic=new GameLogic();
 	static int cardIndex = 0;
+	// static CommunityChest communityChest = new CommunityChest();
+	// static ChanceCards chanceCards = new ChanceCards();
 	
 	public static void turn()
 	{
@@ -40,22 +46,9 @@ public class TurnLogic
 				getCurrentType(currentPlayer).equals("Utility"))
 		{
 			Ownable currentProperty=(Ownable)getCurrentTile(currentPlayer);
-			boolean isUtil=false;
-			if(currentProperty.getTYPE()=="Utility"){isUtil=true;}
 			if(currentProperty.getOwner() != null && currentProperty.getOwner()!=currentPlayer)
 			{
-				int currentRent;
-				if(!isUtil)
-				{
-					currentRent=currentProperty.getRent();
-				}
-				else
-				{
-					Utility currentProp=(Utility)currentProperty;
-					currentRent=currentProp.getRent(lastRoll[0]+lastRoll[1]);
-				}
-				currentPlayer.getAccount().removeFromBalance(currentRent);
-				currentProperty.getOwner().getAccount().addToBalance(currentRent);
+				GameLogic.payRent((Property) currentProperty, currentPlayer, currentProperty.getOwner());
 			}
 		}
 		else if(getCurrentType(currentPlayer).equals("Tax"))
@@ -78,21 +71,17 @@ public class TurnLogic
 			currentPlayer.getAccount().addToBalance(board.bunker.getValue());
 			board.bunker.setValue(0);
 		}
+		/*
 		else if(getCurrentType(currentPlayer).equals("Chance")) {
-			/*
-			Chance chance = (Chance) getCurrentTile(currentPlayer);
 			try {
-				Card card = chance.getCard(cardIndex++);	
-				GameManager.viewManager.displayCard(card);
+				GameManager.viewManager.displayCard(chanceCards.getChanceCard(cardIndex++));
 			}
 			catch (ArrayIndexOutOfBoundsException ex) {
 				cardIndex = 0;
-				Card card = chance.getCard(cardIndex++);
-				GameManager.viewManager.displayCard(card);
+				GameManager.viewManager.displayCard(chanceCards.getChanceCard(cardIndex++));
 			}
-			*/
-			// Cards don't exist
 		}
+		*/
 	}
 	
 	private static String getCurrentType(Player currentP)

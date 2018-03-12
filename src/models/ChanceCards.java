@@ -25,7 +25,6 @@ public class ChanceCards {
 	 */
 	
 	public ChanceCards() {
-		
 		cards[0] = new Card(1, 0, 0, "An I.S. student walks past the server room and lets you out, Get out of Server Room free card");
 		cards[1] = new Card(1, 5, 0, "Go to collect your stipend");
 		cards[2] = new Card(1, 5, 10, "You need to reconfigure the network Go to the Server Room");
@@ -41,6 +40,10 @@ public class ChanceCards {
 		for (int i = 0; i < cards.length; i++) {
 			chance.addCard(cards[i]);
 		}
+	}
+	
+	public Card getChanceCard(int index) {
+		return cards[index];
 	}
 	
 	
