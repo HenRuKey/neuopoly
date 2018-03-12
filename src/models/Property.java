@@ -235,8 +235,8 @@ public class Property implements Tileable, Ownable, Serializable {
 
 	@Override
 	public String toString() {
-		return name + " [" + COLOR + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE + "\nRent: $"
-				+ baseRent + "\nWith 1 House: $" + baseRent * 5 + "\nWith 2 Houses: $" + baseRent * 15
+		return name + " [" + COLOR + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE + "\nCurrently Mortgaged: " + isMortgaged + "\nRent: $"
+				+ baseRent + "\nCurrent Houses: " + getHouses() + "\nHotel: " + getHotel() + "\nWith 1 House: $" + baseRent * 5 + "\nWith 2 Houses: $" + baseRent * 15
 				+ "\nWith 3 Houses: $" + baseRent * 45 + "\nWith 4 Houses: $" + baseRent * 80 + "\nWith HOTEL: $"
 				+ hotelRent + "\n" + description;
 	}
