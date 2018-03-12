@@ -4,11 +4,8 @@ import enums.Token;
 import interfaces.Controllable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import models.Game;
 
 public class SetUpVC implements Controllable {
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
+import controllers.TurnLogic;
 import enums.Token;
 
 //class to keep track of all players in game
@@ -65,6 +66,9 @@ public class Player implements Serializable {
 	public void setServerRoom(boolean sr)
 	{
 		inServerRoom=sr;
+		if (inServerRoom) {
+			setPosition(10);
+		}
 	}
 	public Account getAccount()
 	{

@@ -2,14 +2,12 @@ package controllers;
 
 import interfaces.Viewable;
 import javafx.stage.Stage;
-import models.Board;
-import models.Game;
 import models.Player;
 
 public class GameManager {
 
 	public static Viewable viewManager;
-	private static int currentPlayer = 0;
+	private static int currentPlayer = -1;
 	
 	public static void initialize(Stage stage) {
 		viewManager = new ViewManager(stage);
@@ -17,9 +15,9 @@ public class GameManager {
 	}
 	
 	public static void takeTurn() {
+		currentPlayer = currentPlayer == TurnLogic.game.getPlayerList().size() - 1 ? 0 : currentPlayer + 1;
 		Player player = TurnLogic.game.getPlayerList().get(currentPlayer);
 		viewManager.beginTurn(player);
-		currentPlayer = currentPlayer == TurnLogic.game.getPlayerList().size() - 1 ? 0 : currentPlayer + 1;
 	}
 	
 	public static int getCurrentPlayerIndex() {

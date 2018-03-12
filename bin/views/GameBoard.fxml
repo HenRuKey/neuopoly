@@ -256,7 +256,7 @@
                   </GridPane>
                   <Pane fx:id="paneMenu" maxHeight="750.0" maxWidth="750.0" minHeight="750.0" minWidth="750.0" prefHeight="750.0" prefWidth="750.0" style="-fx-background-color: #ECCC45;">
                      <children>
-                        <Button fx:id="btnPurchase" layoutX="225.0" layoutY="48.0" maxHeight="80.0" maxWidth="300.0" minHeight="80.0" minWidth="300.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="300.0" style="-fx-background-color: #403F3F;" text="Purchase Property" textFill="#efe08d">
+                        <Button fx:id="btnPurchase" layoutX="225.0" layoutY="48.0" maxHeight="80.0" maxWidth="300.0" minHeight="80.0" minWidth="300.0" mnemonicParsing="false" onAction="#purchaseProperty" prefHeight="80.0" prefWidth="300.0" style="-fx-background-color: #403F3F;" text="Purchase Property" textFill="#efe08d">
                            <font>
                               <Font name="Oxygen Regular" size="24.0" />
                            </font>

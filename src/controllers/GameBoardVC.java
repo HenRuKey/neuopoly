@@ -7,10 +7,9 @@ import interfaces.Tileable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -22,7 +21,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import models.Card;
 import models.Player;
@@ -108,11 +106,19 @@ public class GameBoardVC implements Controllable {
 	}
 	
 	public void beginTurn(Player player) {
-		// Make menu visible
-		paneMenu.setVisible(true);
 		// Add current player's name
 		lblCurrentPlayer.setText(TurnLogic.getCurrentPlayer().getName());
-		//Populate player info
+		// Enable roll button
+		btnRoll.setDisable(false);
+		// Populate player info
+		updatePlayerInfo();
+		// Clear previous dice roll
+		paneDieOne.getChildren().clear();
+		paneDieTwo.getChildren().clear();
+	}
+	
+	public void updatePlayerInfo() {
+		Player player = TurnLogic.getCurrentPlayer();
 		TitledPane playerTab = playerTabs[GameManager.getCurrentPlayerIndex()];
 		VBox playerData = (VBox) playerTab.getContent();
 		playerData.getChildren().clear();
@@ -124,20 +130,6 @@ public class GameBoardVC implements Controllable {
 		properties.setItems(observableProperties);
 		playerData.getChildren().add(balance);
 		playerData.getChildren().add(properties);
-		// Clear previous dice roll
-		paneDieOne.getChildren().clear();
-		paneDieTwo.getChildren().clear();
-		// Disable buttons of impossible functions
-		Tileable currrentPosition = TurnLogic.game.getBoard().board.get(player.getPosition());
-		boolean canPurchaseProperty = currrentPosition.getTYPE().equals("Property") && 
-				GameLogic.checkOwnership((Property) currrentPosition);
-		boolean canUpgradeProperty = GameLogic.upgradableProperties(player).size() > 0;
-		boolean canDowngradeProperty = GameLogic.downgradableProperty(player).size() > 0;
-		boolean canMortgage = GameLogic.mortgageableProperties(player).size() > 0;
-		btnPurchase.setDisable(canPurchaseProperty);
-		btnBuyHouse.setDisable(canUpgradeProperty);
-		btnSellHouse.setDisable(canDowngradeProperty);
-		btnMortgage.setDisable(canMortgage);
 	}
 	
 	/**
@@ -162,6 +154,13 @@ public class GameBoardVC implements Controllable {
 		cardData.setTextAlignment(TextAlignment.CENTER);
 		Button btnClose = new Button("Close");
 		btnClose.getStyleClass().add("close-button");
+		btnClose.addEventHandler(ActionEvent.ACTION,
+				new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						paneCard.setVisible(false);
+					}
+		});
 		paneCard.getChildren().add(cardData);
 		cardData.setVisible(true);
 	}
@@ -182,7 +181,11 @@ public class GameBoardVC implements Controllable {
 	}
 	
 	public void purchaseProperty(ActionEvent event) {
-		TurnLogic.getCurrentPlayer();
+		Player player = TurnLogic.getCurrentPlayer();
+		Property property = (Property) TurnLogic.game.getBoard().board.get(player.getPosition());
+		GameLogic.buyProperty(player, property);
+		btnPurchase.setDisable(true);
+		updatePlayerInfo();
 	}
 	
 	public void displayPurchaseOptions(ActionEvent event) {
@@ -209,8 +212,10 @@ public class GameBoardVC implements Controllable {
 	 * Visually represents a die rolling to a specified face.
 	 */
 	public void rollDice(ActionEvent event) {
+		Player player = TurnLogic.getCurrentPlayer();
 		// Roll the dice
-		TurnLogic.turn(0);
+		TurnLogic.turn();
+		updatePlayerInfo();
 		int[] roll = TurnLogic.getLastRoll();
 		int dieOne = roll[0];
 		int dieTwo = roll[1];
@@ -220,7 +225,22 @@ public class GameBoardVC implements Controllable {
 		Image dieOneImage = new Image("views/assets/" + getDieImage(dieOne));
 		Image dieTwoImage = new Image("views/assets/" + getDieImage(dieTwo));
 		paneDieOne.getChildren().add(new ImageView(dieOneImage));
-		paneDieTwo.getChildren().add(new ImageView(dieTwoImage));		
+		paneDieTwo.getChildren().add(new ImageView(dieTwoImage));
+		// Check roll and disable rolling again if not double sixes 
+		btnRoll.setDisable(!((dieOne == 6) && (dieTwo == 6)));
+		// Disable buttons of impossible functions
+		Tileable currrentPosition = TurnLogic.game.getBoard().board.get(player.getPosition());
+		boolean canPurchaseProperty = currrentPosition.getTYPE().equals("Property") && 
+				!GameLogic.hasOwner((Property) currrentPosition);
+		boolean canUpgradeProperty = GameLogic.upgradableProperties(player).size() > 0;
+		boolean canDowngradeProperty = GameLogic.downgradableProperty(player).size() > 0;
+		boolean canMortgage = GameLogic.mortgageableProperties(player).size() > 0;
+		btnPurchase.setDisable(!canPurchaseProperty);
+		btnBuyHouse.setDisable(!canUpgradeProperty);
+		btnSellHouse.setDisable(!canDowngradeProperty);
+		btnMortgage.setDisable(!canMortgage);
+		// Make menu visible
+		paneMenu.setVisible(true);
 	}
 	
 	public void endTurn(ActionEvent event) {

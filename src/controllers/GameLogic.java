@@ -7,7 +7,7 @@ import models.Property;
 public class GameLogic {
 
 	//Checks if the property the player is on has been purchased yet
-	public static boolean checkOwnership(Property property) {
+	public static boolean hasOwner(Property property) {
 		return !(property.getOwner() == null);
 	}
 	
@@ -15,6 +15,7 @@ public class GameLogic {
 	public static void buyProperty(Player player, Property property) {
 		if (player.getAccount().getBalance() > property.PRICE) {
 			player.getAccount().setBalance(player.getAccount().getBalance() - property.PRICE);
+			property.setOwner(player);
 		} else if (player.getAccount().getBalance() < property.PRICE) {
 			// say you don't have enough money
 		}

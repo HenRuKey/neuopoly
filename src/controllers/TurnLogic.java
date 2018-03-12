@@ -1,13 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
-
 import interfaces.Ownable;
 import interfaces.Tileable;
 import models.Board;
 import models.Game;
 import models.Player;
-import models.Property;
 import models.Tax;
 import models.Utility;
 
@@ -19,30 +17,12 @@ public class TurnLogic
 	static ArrayList<Player> players;
 	static Player currentPlayer;
 	static GameLogic gameLogic=new GameLogic();
+	static int cardIndex = 0;
 	
-	public static void turn(int choice)//pass the choice from UI into turn method
+	public static void turn()
 	{
-		switch(choice)
-		{
-		case 0://roll die
-			rollDice();
-			landOnSpace();
-			break;
-		/*
-		case 1: //buy houses/hotels
-			Property currentProperty=currentPlayer.chooseProperty();//get choice from UI
-			if(currentProperty.hasMonopoly())
-			{
-				gameLogic.upgradeProperty(currentPlayer,int pointer);
-			}
-			
-			break;
-		case 2://sell houses/hotels
-			currentProperty=currentPlayer.chooseProperty();
-			gameLogic.downgradeProperty(currentPlayer,int pointer);
-			break;
-		*/
-		}
+		rollDice();
+		landOnSpace();
 	}
 	
 	public static void rollDice() {
@@ -62,11 +42,7 @@ public class TurnLogic
 			Ownable currentProperty=(Ownable)getCurrentTile(currentPlayer);
 			boolean isUtil=false;
 			if(currentProperty.getTYPE()=="Utility"){isUtil=true;}
-			if(currentProperty.getTYPE() == "Property" && currentProperty.getOwner()==null)
-			{
-				GameLogic.buyProperty(currentPlayer,(Property)currentProperty);
-			}
-			else if(currentProperty.getOwner()!=currentPlayer)
+			if(currentProperty.getOwner() != null && currentProperty.getOwner()!=currentPlayer)
 			{
 				int currentRent;
 				if(!isUtil)
@@ -101,6 +77,21 @@ public class TurnLogic
 		{
 			currentPlayer.getAccount().addToBalance(board.bunker.getValue());
 			board.bunker.setValue(0);
+		}
+		else if(getCurrentType(currentPlayer).equals("Chance")) {
+			/*
+			Chance chance = (Chance) getCurrentTile(currentPlayer);
+			try {
+				Card card = chance.getCard(cardIndex++);	
+				GameManager.viewManager.displayCard(card);
+			}
+			catch (ArrayIndexOutOfBoundsException ex) {
+				cardIndex = 0;
+				Card card = chance.getCard(cardIndex++);
+				GameManager.viewManager.displayCard(card);
+			}
+			*/
+			// Cards don't exist
 		}
 	}
 	
