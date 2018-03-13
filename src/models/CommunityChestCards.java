@@ -1,7 +1,6 @@
 package models;
 public class CommunityChestCards {
 	
-	CommunityChest communityChest = new CommunityChest();
 	Card[] cards = new Card[11];
 	
 	/*
@@ -34,12 +33,11 @@ public class CommunityChestCards {
 		cards[7] = new Card(0, 5, 10, "You forgot to setup the firewall Go to the Server Room to fix the mistake");
 		cards[8] = new Card(0, 1, 150, "You make your monthly payment for school, pay $150");
 		cards[9] = new Card(0, 2, 25, "You code something amazing, collect $25 for your good work");
-		cards[10] = new Card(0, 2, 20, "Tax returns, collect $20");
-		
-		for (int i = 0; i < cards.length; i++) {
-			communityChest.addCard(cards[i]);
-		}
-		
+		cards[10] = new Card(0, 2, 20, "Tax returns, collect $20");		
+	}
+	
+	public Card[] getCards() {
+		return this.cards;
 	}
 
 }

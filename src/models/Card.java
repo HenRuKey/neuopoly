@@ -42,6 +42,11 @@ public class Card implements Serializable {
 		return value;
 	}
 
+	
+	public String getTitle() {
+		return type == 0 ? "Community Chest" : "Chance";
+	}
+	
 	public String getDescription() {
 		return description;
 	}

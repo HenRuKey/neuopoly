@@ -1,12 +1,11 @@
 package controllers;
 
-import interfaces.Viewable;
 import javafx.stage.Stage;
 import models.Player;
 
 public class GameManager {
 
-	public static Viewable viewManager;
+	public static ViewManager viewManager;
 	private static int currentPlayer = -1;
 	
 	public static void initialize(Stage stage) {

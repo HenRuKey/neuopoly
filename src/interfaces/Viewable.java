@@ -22,17 +22,15 @@ public interface Viewable {
 	/**
 	 * Updates the physical position of the player on the 
 	 * game board.
-	 * @param player a player who has moved to a new tile
 	 */
-	public void updatePlayerPosition(Player player);
+	public void updatePlayerPosition();
 	
 	/**
 	 * Updates the visual representation of a player's account,
 	 * including monetary changes, property acquisitions, and 
 	 * card availability.
-	 * @param player a player whose account has been altered
 	 */
-	public void updatePlayerAccount(Player player);
+	public void updatePlayerAccount();
 	
 
 	/**

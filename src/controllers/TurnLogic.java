@@ -1,17 +1,18 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import interfaces.Ownable;
 import interfaces.Tileable;
 import models.Board;
-import models.ChanceCards;
+import models.Card;
+import models.Chance;
 import models.CommunityChest;
 import models.Game;
 import models.Player;
 import models.Property;
 import models.Tax;
-import models.Utility;
 
 public class TurnLogic
 {
@@ -22,8 +23,8 @@ public class TurnLogic
 	static Player currentPlayer;
 	static GameLogic gameLogic=new GameLogic();
 	static int cardIndex = 0;
-	// static CommunityChest communityChest = new CommunityChest();
-	// static ChanceCards chanceCards = new ChanceCards();
+	static CommunityChest communityChest = new CommunityChest();
+	static Chance chance = new Chance();
 	
 	public static void turn()
 	{
@@ -49,6 +50,7 @@ public class TurnLogic
 			if(currentProperty.getOwner() != null && currentProperty.getOwner()!=currentPlayer)
 			{
 				GameLogic.payRent((Property) currentProperty, currentPlayer, currentProperty.getOwner());
+				GameManager.viewManager.alertPlayer("Rent!", "Pay $" + currentProperty.getRent());
 			}
 		}
 		else if(getCurrentType(currentPlayer).equals("Tax"))
@@ -57,31 +59,30 @@ public class TurnLogic
 			int taxAmnt=currentTax.VALUE;
 			currentPlayer.getAccount().removeFromBalance(taxAmnt);
 			board.bunker.addToValue(taxAmnt);
+			GameManager.viewManager.alertPlayer("You've Been Taxed!", "Pay $" + taxAmnt);
 		}
 		else if(getCurrentType(currentPlayer).equals("GoStipend"))
 		{
 			currentPlayer.getAccount().addToBalance(400);
+			GameManager.viewManager.alertPlayer("Passed Go", "Collect $400");
 		}
 		else if(getCurrentType(currentPlayer).equals("GoToServerRoom"))
 		{
 			currentPlayer.setServerRoom(true);
+			GameManager.viewManager.alertPlayer("Go to Server Room", "You've got a lot of work to do.");
 		}
 		else if(getCurrentType(currentPlayer).equals("Bunker"))
 		{
 			currentPlayer.getAccount().addToBalance(board.bunker.getValue());
 			board.bunker.setValue(0);
 		}
-		/*
-		else if(getCurrentType(currentPlayer).equals("Chance")) {
-			try {
-				GameManager.viewManager.displayCard(chanceCards.getChanceCard(cardIndex++));
-			}
-			catch (ArrayIndexOutOfBoundsException ex) {
-				cardIndex = 0;
-				GameManager.viewManager.displayCard(chanceCards.getChanceCard(cardIndex++));
-			}
+		else if(getCurrentType(currentPlayer).equals("Chance") || getCurrentType(currentPlayer).equals("CommunityChest")) {
+			Random random = new Random();
+			Card card = getCurrentType(currentPlayer).equals("Chance") ? 
+					chance.getCard(random.nextInt(chance.size())) : communityChest.getCard(random.nextInt(communityChest.size()));
+			GameLogic.useCard(card, currentPlayer);
+			GameManager.viewManager.updatePlayerAccount();
 		}
-		*/
 	}
 	
 	private static String getCurrentType(Player currentP)

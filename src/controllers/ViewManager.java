@@ -46,14 +46,14 @@ public class ViewManager implements Viewable {
 	}
 
 	@Override
-	public void updatePlayerPosition(Player player) {
+	public void updatePlayerPosition() {
 		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
 		vc.updatePlayerPositions();
 	}
 
-	@Override
-	public void updatePlayerAccount(Player player) {
-		
+	public void alertPlayer(String title, String message) {
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.alertPlayer(title, message);
 	}
 
 	@Override
@@ -90,6 +90,12 @@ public class ViewManager implements Viewable {
 		TurnLogic.setCurrentPlayer(player);
 		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
 		vc.beginTurn(player);
+	}
+
+	@Override
+	public void updatePlayerAccount() {
+		GameBoardVC vc = (GameBoardVC) gameBoard.getController();
+		vc.updatePlayerInfo();
 	}
 
 }

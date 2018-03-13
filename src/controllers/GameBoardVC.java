@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Window.Type;
 import java.util.HashMap;
 import interfaces.Controllable;
 import interfaces.Ownable;
@@ -11,11 +12,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -150,23 +153,7 @@ public class GameBoardVC implements Controllable {
 	}
 	
 	public void displayCard(Card card) {
-		if (paneCard.getChildren().size() > 0) {
-			paneCard.getChildren().clear();
-		}
-		Label cardData = new Label();
-		cardData.setText(card.getDescription());
-		cardData.setTextAlignment(TextAlignment.CENTER);
-		Button btnClose = new Button("Close");
-		btnClose.getStyleClass().add("close-button");
-		btnClose.addEventHandler(ActionEvent.ACTION,
-				new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent event) {
-						paneCard.setVisible(false);
-					}
-		});
-		paneCard.getChildren().add(cardData);
-		cardData.setVisible(true);
+		alertPlayer(card.getTitle(), card.getDescription());
 	}
 	
 	public void mortgageProperty(ActionEvent event) {
@@ -281,6 +268,13 @@ public class GameBoardVC implements Controllable {
 		choiceBoxMortgage.setItems(properties);
 		paneMortgage.setVisible(true);
 		updatePlayerInfo();
+	}
+	
+	public void alertPlayer(String title, String message) {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(title);
+		alert.setHeaderText(message);
+		alert.showAndWait();
 	}
 	
 	private String getDieImage(int face) {

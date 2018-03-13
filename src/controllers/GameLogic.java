@@ -1,6 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
+
+import javax.sound.midi.Receiver;
+
+import models.Card;
 import models.Player;
 import models.Property;
 
@@ -132,6 +136,57 @@ public class GameLogic {
 					player.getAccount().setBalance(player.getAccount().getBalance() + (downgradableList.get(pointer).getHouseCost()/2));
 				}
 			}
+		}
+	}
+	
+	public static void useCard(Card card, Player player) {
+		GameManager.viewManager.displayCard(card);
+		int action = card.getAction();
+		switch(action) {
+		case 1:
+			// pay value
+			player.getAccount().removeFromBalance((int) card.getValue());
+			GameManager.viewManager.alertPlayer("Removed Balance", "Removed " + card.getValue() + " from account.");
+			break;
+		case 2:
+			// receive value
+			player.getAccount().addToBalance((int) card.getValue());
+			GameManager.viewManager.alertPlayer("Added Balance", "Added " + card.getValue() + " to account.");
+			break;
+		case 3:
+			// receive from each player
+			for (Player p : TurnLogic.game.getPlayerList()) {
+				if (!p.equals(player)) {
+					p.getAccount().removeFromBalance((int) card.getValue());
+				}
+				else {
+					p.getAccount().addToBalance((int) card.getValue() * TurnLogic.game.getPlayerList().size() - 1);
+				}
+			}
+			GameManager.viewManager.alertPlayer("Balance Distributed", "Player has been funded");
+			break;
+		case 4:
+			// Pay each player
+			for (Player p : TurnLogic.game.getPlayerList()) {
+				if (!p.equals(player)) {
+					p.getAccount().addToBalance((int) card.getValue());
+				}
+				else {
+					p.getAccount().removeFromBalance((int) card.getValue() * TurnLogic.game.getPlayerList().size() - 1);
+				}
+			}
+			GameManager.viewManager.alertPlayer("Balance Distributed", "Player has funded");
+			break;
+		case 5:
+			// Move to specific spot
+			player.setPosition((int) card.getValue());
+			break;
+		case 6:
+			// Move back spaces
+			player.setPosition(player.getPosition() < (int) card.getValue() ? 
+					39 - (int) (card.getValue() - player.getPosition()) : player.getPosition() - (int) card.getValue());
+			GameManager.viewManager.alertPlayer("Moved Positions", "Player has been moved back " + card.getValue() + " spaces.");
+			break;
 		}
 	}
 
