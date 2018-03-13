@@ -12,7 +12,7 @@ public class Property implements Tileable, Ownable, Serializable {
 	 */
 	// this class is for all PROPERTIES, not including utilities and railroads.
 	public final int PRICE, MORTGAGE_PRICE;
-	public final String TYPE,COLOR;
+	public final String TYPE, COLOR;
 	// final fields are public
 	private String name, description;
 	private byte houses;
@@ -26,12 +26,13 @@ public class Property implements Tileable, Ownable, Serializable {
 	private static int totalHotels = 12;
 
 	// Purple:Bridges:60:30:2:250:Houses $50 each, Hotel $50 + 4 Houses
-	public Property(String t, String n, int p, int mp, int r, int hr, String d) {
+	public Property(String t, String n, int p, int mp, int br, int r, int hr, String d) {
 		TYPE = "Property";
-		COLOR=t;
+		COLOR = t;
 		setName(n);
 		PRICE = p;
 		MORTGAGE_PRICE = mp;
+		baseRent = br;
 		rent = r;
 		hotelRent = hr;
 		description = d;
@@ -98,20 +99,16 @@ public class Property implements Tileable, Ownable, Serializable {
 	public boolean hasMonopoly() {
 		int counter = 0;
 		ArrayList<Ownable> props = owner.getAccount().getProperty();
-		for (int i = 0; i < props.size(); i++) 
-		{
-			if (((Property) props.get(i)).getCOLOR() == this.COLOR)//note 
+		for (int i = 0; i < props.size(); i++) {
+			if (((Property) props.get(i)).getCOLOR() == this.COLOR)// note
 			{
 				counter++;
 			}
 		}
-		if(this.COLOR.equals("Blue")||this.COLOR.equals("Purple"))
-		{
-			return counter==2;			
-		}
-		else
-		{
-			return counter==3;
+		if (this.COLOR.equals("Blue") || this.COLOR.equals("Purple")) {
+			return counter == 2;
+		} else {
+			return counter == 3;
 		}
 	}
 
@@ -123,11 +120,11 @@ public class Property implements Tileable, Ownable, Serializable {
 			totalHouses--;
 		}
 	}
-	
+
 	public void sellHouse() {
-		//only able to sell houses if there are houses on the property
+		// only able to sell houses if there are houses on the property
 		if (houses < 5) {
-			//takes one house off the property and adds it back to the total
+			// takes one house off the property and adds it back to the total
 			houses--;
 			totalHouses++;
 		}
@@ -143,13 +140,14 @@ public class Property implements Tileable, Ownable, Serializable {
 			totalHotels--;
 		}
 	}
-	
+
 	public void sellHotel() {
-		//can only sell a hotel if they currently have a hotel and there are enough houses left to put houses on the property
+		// can only sell a hotel if they currently have a hotel and there are enough
+		// houses left to put houses on the property
 		if (getHotel() || totalHouses > 4) {
 			setHotel(false);
 			totalHotels++;
-			setHouses((byte)4);
+			setHouses((byte) 4);
 			totalHouses -= 4;
 		}
 	}
@@ -160,11 +158,10 @@ public class Property implements Tileable, Ownable, Serializable {
 		return TYPE;
 	}
 
-	public String getCOLOR()
-	{
+	public String getCOLOR() {
 		return COLOR;
 	}
-	
+
 	public void setHouseCost(int hc) {
 		houseCost = hc;
 	}
@@ -221,39 +218,38 @@ public class Property implements Tileable, Ownable, Serializable {
 	}
 
 	@Override
-	public Player getOwner()
-	{
+	public Player getOwner() {
 		return owner;
 	}
-	
-	public void setOwner(Player o)
-	{
-		owner=o;
+
+	public void setOwner(Player o) {
+		owner = o;
 	}
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String toString() {
-		return name + " [" + COLOR + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE + "\nCurrently Mortgaged: " + isMortgaged + "\nRent: $"
-				+ baseRent + "\nCurrent Houses: " + getHouses() + "\nHotel: " + getHotel() + "\nWith 1 House: $" + baseRent * 5 + "\nWith 2 Houses: $" + baseRent * 15
-				+ "\nWith 3 Houses: $" + baseRent * 45 + "\nWith 4 Houses: $" + baseRent * 80 + "\nWith HOTEL: $"
-				+ hotelRent + "\n" + description;
+		return name + " [" + COLOR + "]\nPrice: " + PRICE + "\nMortgage Price: " + MORTGAGE_PRICE
+				+ "\nCurrently Mortgaged: " + (isMortgaged ? "Yes" : "No") + "\nHotel: " + (getHotel() ? "Yes" : "No")
+				+ "\nCurrent Houses: " + getHouses() + "\nRent: $" + baseRent + "\nWith 1 House: $" + baseRent * 5
+				+ "\nWith 2 Houses: $" + baseRent * 15 + "\nWith 3 Houses: $" + baseRent * 45 + "\nWith 4 Houses: $"
+				+ baseRent * 80 + "\nWith HOTEL: $" + hotelRent + "\n" + description;
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		if (other == this) {
 			return true;
-		}else if (!(other instanceof Property)) {
+		} else if (!(other instanceof Property)) {
 			return false;
 		}
 		Property card = (Property) other;
-			if (this.name.equals(card.getName())) {
-				return true;
-			}else {
-				return false;
-			}
+		if (this.name.equals(card.getName())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-	
+
 }
